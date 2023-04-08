@@ -140,3 +140,38 @@ def valid_next_steps(current_node, obstacle_map, action_set):
         if(neighbor[1][0] and neighbor[1][1]):
             valid_neighbors.append(neighbor)
     return valid_neighbors  
+
+# main a-star search function
+def astar_search(obstacle_map, rpm_1, rpm_2):
+    action_set = [(0, rpm_1),(rpm_1, 0),(rpm_1, rpm_1),(0, rpm_2),(rpm_2, 0),(rpm_2, rpm_2),(rpm_1, rpm_2),(rpm_2, rpm_1)]
+    while open_list:
+        current_node = open_list.get()[1]
+        close_list[int(round(current_node[1] * 2)),int(round(current_node[0] * 2))] = 2
+        visual_list.append(current_node)
+        goal_reached = False
+        if(math.sqrt((current_node[0] - goal[0])**2 + (current_node[1] - goal[1])**2) < 0.5):
+            goal_reached = True
+        else:
+            goal_reached = False
+            
+        if (goal_reached):
+            print("Reached the given goal")
+            found_path = back_track_path(current_node)
+            return found_path
+        else:
+            valid_neighbors = valid_next_steps(current_node, obstacle_map, action_set)
+            for next_node in valid_neighbors:
+                closed = close_list[int(round(next_node[1][1] * 2)),int(round(next_node[1][0] * 2))]
+                # if the node is already present, ignore it
+                if(closed == 2):
+                    continue    
+                else:
+                    cost_to_next_node = next_node[0]
+                    total_cost_to_node = cost_of_node[current_node] + cost_to_next_node
+                    if(next_node[1] not in cost_of_node or total_cost_to_node < cost_of_node[next_node[1]]):
+                        cost_of_node[next_node[1]] = total_cost_to_node
+                        # Adding Euclidean heuristic
+                        euc_dist = math.sqrt((next_node[1][0] - goal[0])**2 + (next_node[1][1] - goal[1])**2)
+                        cost_with_heuristic = total_cost_to_node + euc_dist       
+                        open_list.put((cost_with_heuristic, next_node[1]))
+                        parent_node[next_node[1]] = current_node   
