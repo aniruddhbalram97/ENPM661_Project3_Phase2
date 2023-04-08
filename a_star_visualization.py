@@ -88,3 +88,34 @@ def generate_map(canvas, clearance):
                 canvas_[j, i] = [255, 0 ,0]
             
     return canvas_
+
+# cost function which considers robot dynamics and outputs the next position, orientation and cost to reach that position if valid
+def cost_function(x_i,y_i,theta_i,u_l,u_r, clearance, obstacle_map):
+    t = 0
+    dt = 0.1
+    x_n = x_i
+    y_n = y_i
+    theta_n = 3.14 * theta_i / 180
+    D = 0
+    while t < 0.5:
+        t = t + dt
+        delta_x_n = 0.5 * wheel_radius * (u_l + u_r) * math.cos(theta_n) * dt
+        delta_y_n = 0.5 * wheel_radius * (u_l + u_r) * math.sin(theta_n) * dt
+        theta_n += (wheel_radius / wheel_distance) * (u_r - u_l) * dt
+        D = D + math.sqrt((0.5 * wheel_radius * (u_l + u_r) * math.cos(theta_n) * dt)**2 + (0.5 * wheel_radius * (u_l + u_r) * math.sin(theta_n) * dt)**2)
+        x_n+=delta_x_n
+        y_n+=delta_y_n
+        x_n = round(x_n)
+        y_n = round(y_n)
+        next_point = (x_n, y_n)
+        if(not check_valid_point(next_point, obstacle_map, robot_radius, clearance)):
+            return None, (None, None, None)
+        tree.append(((x_i,y_i),(x_n,y_n)))
+        x_i = x_n
+        y_i = y_n
+    theta_n = 180 * (theta_n) / 3.14
+    if(theta_n < 0):
+        theta_n+=360
+    theta_n%=360
+    theta_n = int(round(theta_n))
+    return D, (x_n, y_n, theta_n)
