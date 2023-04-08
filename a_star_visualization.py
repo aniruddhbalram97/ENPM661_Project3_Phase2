@@ -186,3 +186,52 @@ def back_track_path(current_node):
         print(final_node)
     found_path.reverse()
     return found_path
+
+############################### MAIN ################################
+# Empty Canvas
+canvas = np.zeros((200, 600, 3), dtype='uint8')
+
+# clearance
+clearance = int(input("Enter clearance required: "))
+
+# Obstacle Map
+obstacle_map = generate_map(canvas, clearance)
+cv2.imshow("Obstacle Map", obstacle_map)
+cv2.waitKey(2000)
+
+# start and goal points
+start, goal, rpm = enter_coordinates(obstacle_map)
+
+while(not check_valid_entry(start, goal, obstacle_map, robot_radius, clearance)):
+    start, goal, rpm = enter_coordinates(obstacle_map)
+
+if(check_valid_entry(start, goal, obstacle_map, robot_radius, clearance)):
+    open_list.put((0, start))
+    parent_node[start] = None # start node has no parent
+    cost_of_node[start] = 0 # start node has no cost
+   
+# a star search
+found_path = astar_search(obstacle_map, rpm[0], rpm[1])
+
+# choose codec according to format needed
+fourcc = cv2.VideoWriter_fourcc(*'mp4v') 
+video1 = cv2.VideoWriter('./videos/complete_exploration.avi', fourcc, 60, (600, 200))
+video2 = cv2.VideoWriter('./videos/found_path.avi', fourcc, 60, (600, 200))
+video3 = cv2.VideoWriter('./videos/trees_explored.avi', fourcc, 60, (600, 200))
+
+for x, y, ori in visual_list:
+    obstacle_map[y, x, 1] = 255
+    video1.write(obstacle_map)
+
+obstacle_map = generate_map(canvas,clearance)
+
+for x, y, ori in found_path:
+    obstacle_map[y, x, 1] = 255
+    cv2.circle(obstacle_map, (x, y), 5, (30, 50, 60))
+    video2.write(obstacle_map)
+
+obstacle_map = generate_map(canvas,clearance)
+
+for tr in tree:
+    cv2.line(obstacle_map, (tr[0][0],tr[0][1]),(tr[1][0],tr[1][1]), (30, 50, 60), 1)
+    video3.write(obstacle_map)
