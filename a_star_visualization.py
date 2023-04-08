@@ -131,3 +131,12 @@ def check_valid_point(neighbor, obstacle_map, robot_radius, clearance):
         return False
     else:
         return True
+    
+# Function which generates valid neighbors from a node point
+def valid_next_steps(current_node, obstacle_map, action_set):
+    valid_neighbors = []
+    for action in action_set:
+        neighbor = cost_function(current_node[0],current_node[1],current_node[2],action[0],action[1], clearance, obstacle_map)
+        if(neighbor[1][0] and neighbor[1][1]):
+            valid_neighbors.append(neighbor)
+    return valid_neighbors  
