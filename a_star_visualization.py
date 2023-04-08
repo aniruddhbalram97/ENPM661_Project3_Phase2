@@ -56,3 +56,35 @@ def check_valid_entry(start, goal, obstacle_map, robot_radius, clearance):
     else:
         print("Great! The start and goal points are valid")
         return True
+    
+    # Function to generate map using half plane equations
+def generate_map(canvas, clearance):
+    canvas_ = canvas.copy()
+    for j in range(canvas.shape[0]):
+        for i in range(canvas.shape[1]):
+            
+            # create rectangles with clearance.
+            if(i>=150 - clearance and i < 165 + clearance and j<=125 + clearance):
+                canvas_[j,i] = [255, 0 ,0]
+            
+            if(i>=250 - clearance and i < 265 + clearance and j>=75 - clearance):
+                canvas_[j,i] = [255, 0 ,0]
+                
+            # create rectangles without clearance
+            if(i>=150 and i < 165 and j<=125):
+                canvas_[j,i] = [255, 255 ,255]
+            if(i>=250 and i < 265 and j>=75):
+                canvas_[j,i] = [255, 255 ,255]
+            
+            # create circle with clearance
+            if((i - 400)**2 + (j - 90)**2 <= (50 + clearance)**2):
+                canvas_[j,i] = [255, 0 ,0]   
+            # create circle without clearance                         
+            if((i - 400)**2 + (j - 90)**2 <= (50)**2):
+                canvas_[j,i] = [255, 255 ,255]  
+                            
+            # clearance for walls
+            if(i<clearance or j<clearance or i>canvas.shape[1] - 1 - clearance or j>canvas.shape[0] - 1 - clearance):
+                canvas_[j, i] = [255, 0 ,0]
+            
+    return canvas_
