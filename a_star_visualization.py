@@ -119,3 +119,15 @@ def cost_function(x_i,y_i,theta_i,u_l,u_r, clearance, obstacle_map):
     theta_n%=360
     theta_n = int(round(theta_n))
     return D, (x_n, y_n, theta_n)
+
+
+# check valid neighbor points
+def check_valid_point(neighbor, obstacle_map, robot_radius, clearance):
+    net_clearance = robot_radius + clearance
+    net_clearance = int(round(net_clearance))
+    if(obstacle_map[neighbor[1]][neighbor[0]][0]==255 or  
+      (neighbor[0] - net_clearance) < 0 or (neighbor[0] + net_clearance) > 599 or (neighbor[1] - net_clearance) < 0 or (neighbor[1] + net_clearance) > 199
+       or  sum(obstacle_map[neighbor[1]][neighbor[0]])==765):
+        return False
+    else:
+        return True
