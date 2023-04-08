@@ -215,9 +215,9 @@ found_path = astar_search(obstacle_map, rpm[0], rpm[1])
 
 # choose codec according to format needed
 fourcc = cv2.VideoWriter_fourcc(*'mp4v') 
-video1 = cv2.VideoWriter('./videos/complete_exploration.avi', fourcc, 60, (600, 200))
-video2 = cv2.VideoWriter('./videos/found_path.avi', fourcc, 60, (600, 200))
-video3 = cv2.VideoWriter('./videos/trees_explored.avi', fourcc, 60, (600, 200))
+video1 = cv2.VideoWriter('./videos/complete_exploration.avi', fourcc, 1000, (600, 200))
+video2 = cv2.VideoWriter('./videos/found_path.avi', fourcc, 30, (600, 200))
+video3 = cv2.VideoWriter('./videos/trees_explored.avi', fourcc, 1000, (600, 200))
 
 for x, y, ori in visual_list:
     obstacle_map[y, x, 1] = 255
