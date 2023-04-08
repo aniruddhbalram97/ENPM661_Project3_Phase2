@@ -175,3 +175,14 @@ def astar_search(obstacle_map, rpm_1, rpm_2):
                         cost_with_heuristic = total_cost_to_node + euc_dist       
                         open_list.put((cost_with_heuristic, next_node[1]))
                         parent_node[next_node[1]] = current_node   
+                        
+# Function to back track and obtain the shortest path possible
+def back_track_path(current_node):
+    found_path = []
+    final_node = current_node
+    while final_node != None:
+        found_path.append(final_node)
+        final_node = parent_node[final_node]
+        print(final_node)
+    found_path.reverse()
+    return found_path
