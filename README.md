@@ -67,11 +67,17 @@ roslaunch project_3_phase_2_aniruddh_rishabh final.launch
 
 - Part 01: https://drive.google.com/drive/folders/1bkmg_n7KPHb0Z_g0tp25p3hR1wPJGNMb
 
-- - Start Position: (50, 100, 0)
-- - Goal Position: (550, 100)
+  - Start Position: (50, 100, 0)
+  - Goal Position: (550, 100)
+  - Clearance: 5
+  - RPM1: 5
+  - RPM2: 6
 
 - Part 02(gazebo.mkv): https://drive.google.com/drive/folders/1bkmg_n7KPHb0Z_g0tp25p3hR1wPJGNMb
 
-- - Start Position: (50, 100, 0) # Default spawn point on gazebo
-- - Goal Position: (550, 100)
-- - Clearance: 15
+  - Start Position: (50, 100, 0) # Default spawn point on gazebo
+  - Goal Position: (550, 100)
+  - Clearance: 15
+
+### Github Repository:
+https://github.com/aniruddhbalram97/ENPM661_Project3_Phase2
