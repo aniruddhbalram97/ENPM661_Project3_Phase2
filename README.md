@@ -13,6 +13,10 @@ DirectoryID: rnamdev
 1) Python 3
 2) Numpy
 3) OpenCV
+4) geometry_msgs
+5) roslaunch
+6) ROS - Noetic(Ran on WSL)
+7) nav_msgs
 
 ### part_01: 
 - Contains the code for part_01 visualization
