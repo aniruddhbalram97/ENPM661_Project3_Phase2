@@ -14,16 +14,55 @@ DirectoryID: rnamdev
 2) Numpy
 3) OpenCV
 
-### Build and Run: 
+### part_01: 
+- Contains the code for part_01 visualization
+- Create a folder called "videos" for the videos to be written otherwise code will no-folder-found error
+
+#### Build and Run:
 ```
 # cd into project directory
-cd <project_directory>
+cd <project_directory>/part_01
+
+# create videos folder
+mkdir videos
 
 # run the python script
 python3 a_star_visualization.py
-
-# Enter the values when prompted
-
 ```
-- Create a videos folder after unzipping inside the project directory for the videos to be written. 
-- The output videos will be stored in that folder for viewing. 
+
+### part_02:
+- Contains rospy package for turtlebot simulation
+
+#### Build and Run: 
+```
+# cd into project directory
+cd <project_directory>/part_02
+
+# add the part_02 to your catkin workspace
+cd workspace/src
+cp <project_directory>/part_02 workspace/src/.
+
+# Rename part_02 to "project_3_phase_2_aniruddh_rishabh"
+
+# set turtlebot3 to burger
+export TURTLEBOT3_MODEL="BURGER"
+
+# build catkin workspace
+cd ../
+catkin_make
+
+# source workspace
+source ./devel/setup.bash
+
+# launch the main file
+roslaunch project_3_phase_2_aniruddh_rishabh turtlebot3_world.launch
+```
+
+### Videos:
+
+- Part 01: https://drive.google.com/drive/folders/1bkmg_n7KPHb0Z_g0tp25p3hR1wPJGNMb
+
+- - Start Position: (50, 100, 0)
+- - Goal Position: (550, 100, 0)
+
+- Part 02: 
