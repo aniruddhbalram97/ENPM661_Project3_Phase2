@@ -54,8 +54,13 @@ catkin_make
 # source workspace
 source ./devel/setup.bash
 
+# Make the python script executable
+chmod +x src/turtlebot_gazebo.py
+
 # launch the main file
-roslaunch project_3_phase_2_aniruddh_rishabh turtlebot3_world.launch
+roslaunch project_3_phase_2_aniruddh_rishabh final.launch
+
+# Enter x and y coordinates of the goal (Spawn Position is default) after all the rospy logs are finished
 ```
 
 ### Videos:
@@ -63,6 +68,10 @@ roslaunch project_3_phase_2_aniruddh_rishabh turtlebot3_world.launch
 - Part 01: https://drive.google.com/drive/folders/1bkmg_n7KPHb0Z_g0tp25p3hR1wPJGNMb
 
 - - Start Position: (50, 100, 0)
-- - Goal Position: (550, 100, 0)
+- - Goal Position: (550, 100)
 
-- Part 02: 
+- Part 02(gazebo.mkv): https://drive.google.com/drive/folders/1bkmg_n7KPHb0Z_g0tp25p3hR1wPJGNMb
+
+- - Start Position: (50, 100, 0) # Default spawn point on gazebo
+- - Goal Position: (550, 100)
+- - Clearance: 15
